@@ -23,21 +23,38 @@ describe('basic', async () => {
     });
   });
 
-  test('Button should be clickable', async () => {
+  test('Button should be available', async () => {
     await page.goto('http://localhost:3000');
 
     const title = await page.textContent('h1');
     expect(title).toBe('Welcome to Mr. Calculator');
 
-    const button = page.locator('#counter');
-    await expect(button).toBeDefined();
+    const buttonOne = await page.locator('text=1');
+    const buttonTwo = await page.locator('text=2');
+    const buttonPlus = await page.locator('text=+');
+    const buttonEquals = await page.locator('text==');
+    const screen = await page.locator('calc-screen');
 
-    await expect(button).toHaveText('count is 0');
-
-    await button.click();
-    await expect(button).toHaveText('count is 1');
-
-    await button.click();
-    await expect(button).toHaveText('count is 2');
+    await expect(buttonOne).toBeDefined();
+    await expect(buttonTwo).toBeDefined();
+    await expect(buttonPlus).toBeDefined();
+    await expect(buttonEquals).toBeDefined();
+    await expect(screen).toBeDefined();
   }, 60_000);
+
+  test('Calculator should work', async () => {
+    await page.goto('http://localhost:3000');
+
+    const buttonOne = await page.locator('text=1');
+    const buttonTwo = await page.locator('text=2');
+    const buttonPlus = await page.locator('text=+');
+    const buttonEquals = await page.locator('text==');
+    const screen = await page.locator('#calc-screen');
+
+    await buttonOne.click();
+    await buttonPlus.click();
+    await buttonTwo.click();
+    await buttonEquals.click();
+    await expect(screen).toHaveText('3');
+  });
 });
