@@ -53,6 +53,11 @@ document.addEventListener('DOMContentLoaded', function () {
       // Add class to the calculator for the selected mode
       calculator!.classList.add(mode.toLowerCase());
 
+      // Remove all buttons
+      calculator?.querySelectorAll('.calc-buttons').forEach((button) => {
+        button.remove();
+      });
+
       calculator?.appendChild(getBasicButtons(display));
     });
   });
