@@ -41,9 +41,9 @@ let scientificButtons = [
   '2',
   '3',
   '-',
-  '0',
   '.',
-  '=',
+  '0',
+  'pi',
   '+',
   'sin',
   'cos',
@@ -55,8 +55,23 @@ let scientificButtons = [
   'x³',
   'xⁿ',
   'e',
-  'π',
   '!',
+  '=',
+];
+
+let programmingButtons = [
+  'AC',
+  'DEL',
+  '0',
+  '1',
+  '-',
+  '+',
+  '=',
+  'AND',
+  'OR',
+  'XOR',
+  'NOT',
+  'NOR',
 ];
 
 // Wait for the DOM to be ready
@@ -124,6 +139,10 @@ document.addEventListener('DOMContentLoaded', function () {
       if (mode === 'Basic') {
         calculator?.appendChild(getButtons(basicButtons, display));
       } else if (mode === 'Scientific') {
+        calculator?.appendChild(getButtons(scientificButtons, display));
+      } else if (mode === 'Programming') {
+        calculator?.appendChild(getButtons(programmingButtons, display));
+      } else if (mode === 'Trigonometry') {
         calculator?.appendChild(getButtons(scientificButtons, display));
       }
     });
