@@ -72,6 +72,7 @@ let programmingButtons = [
   'XOR',
   'NOT',
   'NOR',
+  'NAND',
 ];
 
 // Wait for the DOM to be ready
@@ -145,6 +146,11 @@ document.addEventListener('DOMContentLoaded', function () {
       } else if (mode === 'Trigonometry') {
         calculator?.appendChild(getButtons(scientificButtons, display));
       }
+
+      // Fade in buttons
+      calculator?.querySelectorAll('.calc-buttons').forEach((button) => {
+        button.classList.add('fade-in');
+      });
     });
   });
 });
