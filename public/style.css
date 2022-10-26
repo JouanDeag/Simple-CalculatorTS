@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -135,6 +137,7 @@ button:hover {
 }
 
 #calc-screen {
+  font: 1rem 'Righteous';
   grid-column: 1 / -1;
   text-align: right;
   padding: 0.5rem;
