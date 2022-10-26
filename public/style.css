@@ -26,8 +26,8 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  min-width: 100vw;
 }
 
 h1 {
@@ -45,17 +45,24 @@ h1 {
 .calc-wrapper {
   position: relative;
   display: grid;
+  justify-items: center;
+  align-items: center;
   grid-gap: 1rem;
-  margin: 1rem 0;
   border: 10px solid #82e1df;
   padding: 2rem;
+  max-width: 100vw;
   border-radius: 0.5rem;
+}
+
+.calc-wrapper > * {
+  max-width: 100vw;
+  width: 90%;
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.6em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -63,6 +70,8 @@ button {
   color: #274156;
   cursor: pointer;
   transition: border-color 0.25s;
+  min-width: 3rem;
+  text-align: center;
 }
 button:hover {
   border-color: #646cff;
@@ -72,6 +81,8 @@ button:hover {
   display: grid;
   grid-gap: 0.2rem;
   grid-template-columns: repeat(2, 1fr);
+
+  padding: 0.5rem;
 }
 
 .active {
@@ -92,6 +103,11 @@ button:hover {
   }
 }
 
+.mode {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
 .calc-buttons {
   position: relative;
   display: grid;
@@ -106,6 +122,7 @@ button:hover {
   border: rgba(255, 255, 255, 0.1) 2px solid;
   border-radius: 1rem;
   padding: 1rem;
+  max-width: 100vw;
 }
 
 .calc-button-top {
@@ -123,7 +140,7 @@ button:hover {
 .calc-button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.6em 0.6em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -150,6 +167,7 @@ button:hover {
   transition: border-color 0.25s;
   min-height: 2rem;
   overflow-x: auto;
+  max-width: 100%;
 }
 
 @media (prefers-color-scheme: light) {
@@ -159,5 +177,18 @@ button:hover {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+.fade-in {
+  animation: fadeIn ease 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
