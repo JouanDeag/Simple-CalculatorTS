@@ -1,6 +1,64 @@
 // Import the math module
 import mexp from 'math-expression-evaluator';
 
+let basicButtons = [
+  'AC',
+  '(',
+  ')',
+  'DEL',
+  '7',
+  '8',
+  '9',
+  '*',
+  '4',
+  '5',
+  '6',
+  '/',
+  '1',
+  '2',
+  '3',
+  '-',
+  '0',
+  '.',
+  '=',
+  '+',
+];
+
+let scientificButtons = [
+  'AC',
+  '(',
+  ')',
+  'DEL',
+  '7',
+  '8',
+  '9',
+  '*',
+  '4',
+  '5',
+  '6',
+  '/',
+  '1',
+  '2',
+  '3',
+  '-',
+  '0',
+  '.',
+  '=',
+  '+',
+  'sin',
+  'cos',
+  'tan',
+  'log',
+  'ln',
+  '√',
+  'x²',
+  'x³',
+  'xⁿ',
+  'e',
+  'π',
+  '!',
+];
+
 // Wait for the DOM to be ready
 document.addEventListener('DOMContentLoaded', function () {
   // Get the calculator
@@ -23,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const display = document.querySelector<HTMLDivElement>('#calc-screen');
 
   // Add inital buttons
-  calculator?.appendChild(getBasicButtons(display));
+  calculator?.appendChild(getButtons(basicButtons, display));
 
   // Handle calculator mode switching
 
@@ -33,6 +91,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const mode = event.target?.innerText;
 
       console.log(mode);
+
+      if (display) {
+        display.innerText = '';
+      }
 
       // Add active class to the selected mode
       modeButtons.forEach((button) => {
@@ -58,38 +120,20 @@ document.addEventListener('DOMContentLoaded', function () {
         button.remove();
       });
 
-      calculator?.appendChild(getBasicButtons(display));
+      // Add correct buttons for mode
+      if (mode === 'Basic') {
+        calculator?.appendChild(getButtons(basicButtons, display));
+      } else if (mode === 'Scientific') {
+        calculator?.appendChild(getButtons(scientificButtons, display));
+      }
     });
   });
 });
 
-function getBasicButtons(display: HTMLDivElement | null) {
-  let childButtonsBasic = [
-    'AC',
-    '(',
-    ')',
-    '^',
-    '7',
-    '8',
-    '9',
-    '*',
-    '4',
-    '5',
-    '6',
-    '/',
-    '1',
-    '2',
-    '3',
-    '-',
-    '0',
-    '.',
-    '=',
-    '+',
-  ];
-
+function getButtons(buttonSet: string[], display: HTMLDivElement | null) {
   let basicButtons = document.createElement('div');
   basicButtons.classList.add('calc-buttons');
-  childButtonsBasic.forEach((button) => {
+  buttonSet.forEach((button) => {
     let buttonElement = document.createElement('button');
     buttonElement.classList.add('calc-button');
 
@@ -112,6 +156,11 @@ function getBasicButtons(display: HTMLDivElement | null) {
       // @ts-ignore
       const value = event.target?.innerText;
 
+      // Overwrite if error
+      if (display?.innerText === 'Error') {
+        display.innerText = '';
+      }
+
       // Check if the value is an operator
       if (value === 'AC') {
         display!.innerText = '';
@@ -123,15 +172,21 @@ function getBasicButtons(display: HTMLDivElement | null) {
           display!.innerText = `Error`;
           console.log(e);
         }
+      } else if (value === 'DEL') {
+        // Delete the last character as well as prevent erros when trying to delete empty string
+        display!.innerText =
+          display!.innerText.length > 0 ? display!.innerText.slice(0, -1) : '';
       } else {
         // Append the value to the display
         display!.innerText += value;
       }
     });
 
+    // Add the value (text) to the button
     buttonElement.innerText = button;
     basicButtons.appendChild(buttonElement);
   });
 
+  // Return the buttons to be added to the DOM
   return basicButtons;
 }
