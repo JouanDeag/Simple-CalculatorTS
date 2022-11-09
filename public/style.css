@@ -170,6 +170,23 @@ button:hover {
   max-width: 100%;
 }
 
+#graph {
+  transition: none;
+}
+
+#graph > * {
+  max-width: 100%;
+  transition: none;
+  background: #4f4f4f;
+  border-radius: 1rem;
+}
+
+#graph * {
+  transition: none;
+  stroke: #afafaf;
+  stroke-width: 1px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

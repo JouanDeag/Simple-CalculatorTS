@@ -21,6 +21,9 @@
     "vitest": "^0.24.3"
   },
   "dependencies": {
-    "math-expression-evaluator": "^1.4.0"
+    "events": "^3.3.0",
+    "function-plot": "^1.23.1",
+    "math-expression-evaluator": "^1.4.0",
+    "mathjs": "^11.3.3"
   }
 }

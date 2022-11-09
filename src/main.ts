@@ -1,5 +1,7 @@
 // Import the math module
 import mexp from 'math-expression-evaluator';
+import { derivative as drv } from 'mathjs';
+import functionPlot from 'function-plot';
 
 let basicButtons = [
   'AC',
@@ -75,6 +77,36 @@ let programmingButtons = [
   'NAND',
 ];
 
+let graphingButtons = [
+  'AC',
+  'DEL',
+  '(',
+  ')',
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '-',
+  '+',
+  '=',
+  'x',
+  'exp',
+  'sin',
+  'cos',
+  'tan',
+  'log',
+  'ln',
+  'root',
+  'graph',
+  'derive',
+];
+
 // Wait for the DOM to be ready
 document.addEventListener('DOMContentLoaded', function () {
   // Get the calculator
@@ -125,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'basic',
         'scientific',
         'programming',
-        'trigonometry'
+        'graphing'
       );
 
       // Add class to the calculator for the selected mode
@@ -136,17 +168,25 @@ document.addEventListener('DOMContentLoaded', function () {
         button.remove();
       });
 
-      // Add correct buttons for mode
-      if (mode === 'Basic') {
-        calculator?.appendChild(getButtons(basicButtons, display));
-      } else if (mode === 'Scientific') {
-        calculator?.appendChild(getButtons(scientificButtons, display));
-      } else if (mode === 'Programming') {
-        calculator?.appendChild(getButtons(programmingButtons, display));
-      } else if (mode === 'Trigonometry') {
-        calculator?.appendChild(getButtons(scientificButtons, display));
-      }
+      removeGraphingArea();
 
+      // Add correct buttons for mode
+      switch (mode) {
+        case 'Basic':
+          calculator?.appendChild(getButtons(basicButtons, display));
+          break;
+        case 'Scientific':
+          calculator?.appendChild(getButtons(scientificButtons, display));
+          break;
+        case 'Programming':
+          calculator?.appendChild(getButtons(programmingButtons, display));
+          break;
+        case 'Graphing':
+          calculator?.appendChild(getButtons(graphingButtons, display));
+          addGraphingArea();
+          graph('exp(0.1x)*x', true);
+          break;
+      }
       // Fade in buttons
       calculator?.querySelectorAll('.calc-buttons').forEach((button) => {
         button.classList.add('fade-in');
@@ -214,4 +254,55 @@ function getButtons(buttonSet: string[], display: HTMLDivElement | null) {
 
   // Return the buttons to be added to the DOM
   return basicButtons;
+}
+
+function addGraphingArea() {
+  const graphingArea = document.createElement('div');
+  graphingArea.classList.add('graphing-area');
+  graphingArea.id = 'graphing-area';
+  document.querySelector('.calc-wrapper')?.appendChild(graphingArea);
+}
+
+function removeGraphingArea() {
+  document.querySelector('.graphing-area')?.remove();
+}
+
+// function getGraphingButtons(
+//   buttons: string[],
+//   display: HTMLDivElement | null
+// ) {}
+
+function graph(func: string, derive: boolean) {
+  const graphingArea = document.querySelector<HTMLDivElement>('#graphing-area');
+
+  if (graphingArea) {
+    graphingArea.innerHTML = '';
+
+    const graph = document.createElement('div');
+    graph.classList.add('graph');
+    graph.id = 'graph';
+
+    graphingArea.appendChild(graph);
+
+    let derivative = drv(func, 'x').toString();
+
+    const graphOptions = {
+      target: '#graph',
+      data: [
+        {
+          fn: func,
+          color: '#ffffff',
+          derivative: {
+            fn: derive ? derivative : undefined,
+            updateOnMouseMove: true,
+          },
+        },
+      ],
+      grid: true,
+      yAxis: { domain: [-10, 10] },
+      xAxis: { domain: [-10, 10] },
+    };
+
+    functionPlot(graphOptions);
+  }
 }
