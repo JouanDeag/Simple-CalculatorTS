@@ -1,7 +1,10 @@
-// Import the math module
-import mexp from 'math-expression-evaluator';
-import { derivative as drv } from 'mathjs';
-import functionPlot from 'function-plot';
+import { evaluate } from './math';
+import {
+  graph,
+  addGraphingArea,
+  removeGraphingArea,
+  getGraphingButtons,
+} from './graphing';
 
 let basicButtons = [
   'AC',
@@ -82,18 +85,20 @@ let graphingButtons = [
   'DEL',
   '(',
   ')',
-  '0',
   '1',
   '2',
   '3',
+  '+',
   '4',
   '5',
   '6',
+  '-',
   '7',
   '8',
   '9',
-  '-',
-  '+',
+  '^',
+  '.',
+  '0',
   '=',
   'x',
   'exp',
@@ -103,7 +108,6 @@ let graphingButtons = [
   'log',
   'ln',
   'root',
-  'graph',
   'derive',
 ];
 
@@ -137,8 +141,6 @@ document.addEventListener('DOMContentLoaded', function () {
     button.addEventListener('click', (event) => {
       // @ts-ignore
       const mode = event.target?.innerText;
-
-      console.log(mode);
 
       if (display) {
         display.innerText = '';
@@ -182,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
           calculator?.appendChild(getButtons(programmingButtons, display));
           break;
         case 'Graphing':
-          calculator?.appendChild(getButtons(graphingButtons, display));
+          calculator?.appendChild(getGraphingButtons(graphingButtons, display));
           addGraphingArea();
           graph('exp(0.1x)*x', true);
           break;
@@ -227,23 +229,26 @@ function getButtons(buttonSet: string[], display: HTMLDivElement | null) {
       }
 
       // Check if the value is an operator
-      if (value === 'AC') {
-        display!.innerText = '';
-      } else if (value === '=') {
-        // Calculate the expression
-        try {
-          display!.innerText = mexp.eval(display!.innerText);
-        } catch (e) {
-          display!.innerText = `Error`;
-          console.log(e);
-        }
-      } else if (value === 'DEL') {
-        // Delete the last character as well as prevent erros when trying to delete empty string
-        display!.innerText =
-          display!.innerText.length > 0 ? display!.innerText.slice(0, -1) : '';
-      } else {
-        // Append the value to the display
-        display!.innerText += value;
+      switch (value) {
+        case 'AC':
+          display!.innerText = '';
+          break;
+        case 'DEL':
+          display!.innerText = display!.innerText.slice(0, -1);
+          break;
+        case '=':
+          // Calculate the result
+          try {
+            // @ts-ignore
+            display!.innerText = evaluate(display!.innerText);
+          } catch (error) {
+            display!.innerText = 'Error';
+            console.log(error);
+          }
+          break;
+        default:
+          display!.innerText += value;
+          break;
       }
     });
 
@@ -254,55 +259,4 @@ function getButtons(buttonSet: string[], display: HTMLDivElement | null) {
 
   // Return the buttons to be added to the DOM
   return basicButtons;
-}
-
-function addGraphingArea() {
-  const graphingArea = document.createElement('div');
-  graphingArea.classList.add('graphing-area');
-  graphingArea.id = 'graphing-area';
-  document.querySelector('.calc-wrapper')?.appendChild(graphingArea);
-}
-
-function removeGraphingArea() {
-  document.querySelector('.graphing-area')?.remove();
-}
-
-// function getGraphingButtons(
-//   buttons: string[],
-//   display: HTMLDivElement | null
-// ) {}
-
-function graph(func: string, derive: boolean) {
-  const graphingArea = document.querySelector<HTMLDivElement>('#graphing-area');
-
-  if (graphingArea) {
-    graphingArea.innerHTML = '';
-
-    const graph = document.createElement('div');
-    graph.classList.add('graph');
-    graph.id = 'graph';
-
-    graphingArea.appendChild(graph);
-
-    let derivative = drv(func, 'x').toString();
-
-    const graphOptions = {
-      target: '#graph',
-      data: [
-        {
-          fn: func,
-          color: '#ffffff',
-          derivative: {
-            fn: derive ? derivative : undefined,
-            updateOnMouseMove: true,
-          },
-        },
-      ],
-      grid: true,
-      yAxis: { domain: [-10, 10] },
-      xAxis: { domain: [-10, 10] },
-    };
-
-    functionPlot(graphOptions);
-  }
 }
