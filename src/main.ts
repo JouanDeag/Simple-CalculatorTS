@@ -29,56 +29,56 @@ let basicButtons = [
   '+',
 ];
 
-let scientificButtons = [
-  'AC',
-  '(',
-  ')',
-  'DEL',
-  '7',
-  '8',
-  '9',
-  '*',
-  '4',
-  '5',
-  '6',
-  '/',
-  '1',
-  '2',
-  '3',
-  '-',
-  '.',
-  '0',
-  'pi',
-  '+',
-  'sin',
-  'cos',
-  'tan',
-  'log',
-  'ln',
-  '√',
-  'x²',
-  'x³',
-  'xⁿ',
-  'e',
-  '!',
-  '=',
-];
+// let scientificButtons = [
+//   'AC',
+//   '(',
+//   ')',
+//   'DEL',
+//   '7',
+//   '8',
+//   '9',
+//   '*',
+//   '4',
+//   '5',
+//   '6',
+//   '/',
+//   '1',
+//   '2',
+//   '3',
+//   '-',
+//   '.',
+//   '0',
+//   'pi',
+//   '+',
+//   'sin',
+//   'cos',
+//   'tan',
+//   'log',
+//   'ln',
+//   '√',
+//   'x²',
+//   'x³',
+//   'xⁿ',
+//   'e',
+//   '!',
+//   '=',
+// ];
 
-let programmingButtons = [
-  'AC',
-  'DEL',
-  '0',
-  '1',
-  '-',
-  '+',
-  '=',
-  'AND',
-  'OR',
-  'XOR',
-  'NOT',
-  'NOR',
-  'NAND',
-];
+// let programmingButtons = [
+//   'AC',
+//   'DEL',
+//   '0',
+//   '1',
+//   '-',
+//   '+',
+//   '=',
+//   'AND',
+//   'OR',
+//   'XOR',
+//   'NOT',
+//   'NOR',
+//   'NAND',
+// ];
 
 let graphingButtons = [
   'AC',
@@ -177,12 +177,12 @@ document.addEventListener('DOMContentLoaded', function () {
         case 'Basic':
           calculator?.appendChild(getButtons(basicButtons, display));
           break;
-        case 'Scientific':
-          calculator?.appendChild(getButtons(scientificButtons, display));
-          break;
-        case 'Programming':
-          calculator?.appendChild(getButtons(programmingButtons, display));
-          break;
+        // case 'Scientific':
+        //   calculator?.appendChild(getButtons(scientificButtons, display));
+        //   break;
+        // case 'Programming':
+        //   calculator?.appendChild(getButtons(programmingButtons, display));
+        //   break;
         case 'Graphing':
           calculator?.appendChild(getGraphingButtons(graphingButtons, display));
           addGraphingArea();

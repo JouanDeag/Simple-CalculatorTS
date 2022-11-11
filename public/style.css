@@ -90,12 +90,6 @@ button:hover {
   color: black;
 }
 
-@media screen and (min-width: 768px) {
-  .modes {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
 @media screen and (max-width: 500px) {
   .modes {
     grid-template-columns: repeat(1, 1fr);
