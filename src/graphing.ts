@@ -13,41 +13,38 @@ export function graph(func: string, derive: boolean) {
 
     graphingArea.appendChild(graph);
 
-    let drv = derivative(func, 'x').toString();
-
-    const graphOptions = {
-      target: '#graph',
-      data: [
-        {
-          fn: func,
-          color: '#ffffff',
-          derivative: {
-            fn: drv,
-            updateOnMouseMove: true,
-          },
-        },
-      ],
-      grid: true,
-      yAxis: { domain: [-10, 10] },
-      xAxis: { domain: [-10, 10] },
-    };
-
-    const deriveOptions = {
-      target: '#graph',
-      data: [
-        {
-          fn: func,
-          color: '#ffffff',
-        },
-      ],
-      grid: true,
-      yAxis: { domain: [-10, 10] },
-      xAxis: { domain: [-10, 10] },
-    };
-
     if (derive) {
+      let drv = derivative(func, 'x').toString();
+      const deriveOptions = {
+        target: '#graph',
+        data: [
+          {
+            fn: func,
+            color: '#ffffff',
+            derivative: {
+              fn: drv,
+              updateOnMouseMove: true,
+            },
+          },
+        ],
+        grid: true,
+        yAxis: { domain: [-10, 10] },
+        xAxis: { domain: [-10, 10] },
+      };
       functionPlot(deriveOptions);
     } else {
+      const graphOptions = {
+        target: '#graph',
+        data: [
+          {
+            fn: func,
+            color: '#ffffff',
+          },
+        ],
+        grid: true,
+        yAxis: { domain: [-10, 10] },
+        xAxis: { domain: [-10, 10] },
+      };
       functionPlot(graphOptions);
     }
   }
@@ -105,7 +102,12 @@ export function getGraphingButtons(
           break;
         case '=':
           // Calculate the expression
-          graph(display!.innerText, true);
+          try {
+            graph(display!.innerText, false);
+          } catch (error) {
+            display!.innerText = 'Error';
+            console.log(error);
+          }
           break;
         case 'DEL':
           // Delete the last character as well as prevent erros when trying to delete empty string
@@ -115,7 +117,12 @@ export function getGraphingButtons(
               : '';
           break;
         case 'derive':
-          graph(display!.innerText, true);
+          try {
+            graph(display!.innerText, true);
+          } catch (error) {
+            display!.innerText = 'Error';
+            console.log(error);
+          }
           break;
         default:
           // Append the value to the display
