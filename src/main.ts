@@ -101,6 +101,7 @@ let graphingButtons = [
   '0',
   '=',
   'x',
+  '/',
   'exp',
   'sin',
   'cos',
