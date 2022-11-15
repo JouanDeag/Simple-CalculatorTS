@@ -100,8 +100,9 @@ let graphingButtons = [
   '.',
   '0',
   '=',
-  'x',
   '/',
+  '*',
+  'x',
   'exp',
   'sin',
   'cos',
@@ -254,7 +255,7 @@ function getButtons(buttonSet: string[], display: HTMLDivElement | null) {
     });
 
     // Add the value (text) to the button
-    buttonElement.innerText = button;
+    buttonElement.innerHTML = button;
     basicButtons.appendChild(buttonElement);
   });
 
