@@ -127,11 +127,14 @@ export function getGraphingButtons(
         default:
           // Append the value to the display
           display!.innerText += value;
+          if (value.length > 1) {
+            display!.innerText += '(';
+          }
       }
     });
 
     // Add the value (text) to the button
-    buttonElement.innerText = button;
+    buttonElement.innerHTML = button;
     graphingButtons.appendChild(buttonElement);
   });
 
