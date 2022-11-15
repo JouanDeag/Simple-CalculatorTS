@@ -110,11 +110,28 @@ export function getGraphingButtons(
           }
           break;
         case 'DEL':
-          // Delete the last character as well as prevent erros when trying to delete empty string
-          display!.innerText =
-            display!.innerText.length > 0
-              ? display!.innerText.slice(0, -1)
-              : '';
+          // Check if the last character is a trigonomtry operator
+          if (
+            display!.innerText.slice(-3) === 'sin' ||
+            display!.innerText.slice(-3) === 'cos' ||
+            display!.innerText.slice(-3) === 'tan' ||
+            display!.innerText.slice(-3) === 'log' ||
+            display!.innerText.slice(-3) === 'ln(' ||
+            display!.innerText.slice(-3) === 'abs' ||
+            display!.innerText.slice(-3) === 'der' ||
+            display!.innerText.slice(-3) === 'int' ||
+            display!.innerText.slice(-3) === 'root' ||
+            display!.innerText.slice(-3) === 'exp'
+          ) {
+            display!.innerText = display!.innerText.slice(0, -3);
+          } else {
+            // Delete the last character as well as prevent erros when trying to delete empty string
+            display!.innerText =
+              display!.innerText.length > 0
+                ? display!.innerText.slice(0, -1)
+                : '';
+          }
+
           break;
         case 'derive':
           try {
