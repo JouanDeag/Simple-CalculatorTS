@@ -1,5 +1,6 @@
 import { graph } from './graphing';
-import { evaluate } from './math';
+// @ts-ignore
+import { evaluate, sqrt } from './math';
 
 export default function addButtons(
   buttons: string[],
@@ -50,8 +51,9 @@ export default function addButtons(
             if (graphing) {
               graph(display!.innerText, false);
             } else {
-              let toEval = display!.innerText.replace('pi', '3.14159265359');
-
+              let toEval = display!.innerText
+                .replace('pi', '3.14159265359')
+                .replace('e', '2.71828182846');
               display!.innerText = evaluate(toEval).toString();
             }
           } catch (error) {
