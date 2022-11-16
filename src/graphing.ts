@@ -1,5 +1,6 @@
 import functionPlot from 'function-plot';
 import { derivative } from './math';
+import buttons from './buttons.json';
 
 export function graph(func: string, derive: boolean) {
   const graphingArea = document.querySelector<HTMLDivElement>('#graphing-area');
@@ -61,18 +62,15 @@ export function removeGraphingArea() {
   document.getElementById('graph')?.replaceChildren();
 }
 
-export function getGraphingButtons(
-  buttons: string[],
-  display: HTMLDivElement | null
-) {
+export function getGraphingButtons(display: HTMLDivElement | null) {
   let graphingButtons = document.createElement('div');
   graphingButtons.classList.add('calc-buttons');
-  buttons.forEach((button) => {
+  buttons.graph.forEach((button) => {
     let buttonElement = document.createElement('button');
     buttonElement.classList.add('calc-button');
 
     if (button === 'AC' || button === '(' || button === ')') {
-      buttonElement.classList.add('calc-button-top');
+      buttonElement.classList.add('calc-button-tops');
     } else if (
       button === '^' ||
       button === '*' ||
@@ -111,19 +109,22 @@ export function getGraphingButtons(
           break;
         case 'DEL':
           // Check if the last character is a trigonomtry operator
+
+          // let lastChar = display!.innerText.slice(-1);
+          let lastChars = display!.innerText.slice(-4);
           if (
-            display!.innerText.slice(-3) === 'sin' ||
-            display!.innerText.slice(-3) === 'cos' ||
-            display!.innerText.slice(-3) === 'tan' ||
-            display!.innerText.slice(-3) === 'log' ||
-            display!.innerText.slice(-3) === 'ln(' ||
-            display!.innerText.slice(-3) === 'abs' ||
-            display!.innerText.slice(-3) === 'der' ||
-            display!.innerText.slice(-3) === 'int' ||
-            display!.innerText.slice(-3) === 'root' ||
-            display!.innerText.slice(-3) === 'exp'
+            lastChars === 'sin(' ||
+            lastChars === 'cos(' ||
+            lastChars === 'tan(' ||
+            lastChars === 'log(' ||
+            lastChars === 'ln(' ||
+            lastChars === 'abs(' ||
+            lastChars === 'der(' ||
+            lastChars === 'int(' ||
+            lastChars === 'sqrt' ||
+            lastChars === 'exp('
           ) {
-            display!.innerText = display!.innerText.slice(0, -3);
+            display!.innerText = display!.innerText.slice(0, -4);
           } else {
             // Delete the last character as well as prevent erros when trying to delete empty string
             display!.innerText =
