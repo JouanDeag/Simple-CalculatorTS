@@ -1,62 +1,7 @@
 import buttons from './buttons.json';
+import addButtons from './addbuttons';
 import { evaluate } from './math';
-import {
-  graph,
-  addGraphingArea,
-  removeGraphingArea,
-  getGraphingButtons,
-} from './graphing';
-
-// let scientificButtons = [
-//   'AC',
-//   '(',
-//   ')',
-//   'DEL',
-//   '7',
-//   '8',
-//   '9',
-//   '*',
-//   '4',
-//   '5',
-//   '6',
-//   '/',
-//   '1',
-//   '2',
-//   '3',
-//   '-',
-//   '.',
-//   '0',
-//   'pi',
-//   '+',
-//   'sin',
-//   'cos',
-//   'tan',
-//   'log',
-//   'ln',
-//   '√',
-//   'x²',
-//   'x³',
-//   'xⁿ',
-//   'e',
-//   '!',
-//   '=',
-// ];
-
-// let programmingButtons = [
-//   'AC',
-//   'DEL',
-//   '0',
-//   '1',
-//   '-',
-//   '+',
-//   '=',
-//   'AND',
-//   'OR',
-//   'XOR',
-//   'NOT',
-//   'NOR',
-//   'NAND',
-// ];
+import { graph, addGraphingArea, removeGraphingArea } from './graphing';
 
 // Wait for the DOM to be ready
 document.addEventListener('DOMContentLoaded', function () {
@@ -80,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const display = document.querySelector<HTMLDivElement>('#calc-screen');
 
   // Add inital buttons
-  calculator?.appendChild(getButtons(buttons.basic, display));
+  addButtons(buttons.basic, display, calculator);
 
   // Handle calculator mode switching
 
@@ -124,14 +69,11 @@ document.addEventListener('DOMContentLoaded', function () {
         case 'Basic':
           calculator?.appendChild(getButtons(buttons.basic, display));
           break;
-        // case 'Scientific':
-        //   calculator?.appendChild(getButtons(scientificButtons, display));
-        //   break;
-        // case 'Programming':
-        //   calculator?.appendChild(getButtons(programmingButtons, display));
-        //   break;
+        case 'Scientific':
+          addButtons(buttons.scientific, display, calculator);
+          break;
         case 'Graphing':
-          calculator?.appendChild(getGraphingButtons(display));
+          addButtons(buttons.graph, display, calculator, true);
           addGraphingArea();
           graph('exp(0.1x)*x', true);
           break;
