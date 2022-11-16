@@ -1,6 +1,5 @@
 import { graph } from './graphing';
-// @ts-ignore
-import { evaluate, sqrt } from './math';
+import { evaluate } from './math';
 
 export default function addButtons(
   buttons: string[],
