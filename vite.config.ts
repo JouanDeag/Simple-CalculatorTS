@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  define: {
+    global: 'window',
+    globals: true,
+  },
   test: {
     testTimeout: 60_000,
     hookTimeout: 60_000,
-  },
-  define: {
-    global: 'window',
   },
   //   define global: 'window',
   //   plugins: [],
