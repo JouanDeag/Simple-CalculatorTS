@@ -1,5 +1,5 @@
 import functionPlot from 'function-plot';
-import { derivative } from './math';
+import * as math from './math';
 
 export function graph(func: string, derive: boolean) {
   const graphingArea = document.querySelector<HTMLDivElement>('#graphing-area');
@@ -14,7 +14,7 @@ export function graph(func: string, derive: boolean) {
     graphingArea.appendChild(graph);
 
     if (derive) {
-      let drv = derivative(func, 'x').toString();
+      let drv = math.derivative(func, 'x').toString();
       const deriveOptions = {
         target: '#graph',
         data: [

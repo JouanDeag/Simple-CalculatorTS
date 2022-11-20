@@ -1,6 +1,6 @@
 import buttons from './buttons.json';
 import addButtons from './addbuttons';
-import { evaluate } from './math';
+import mexp from 'math-expression-evaluator';
 import { graph, addGraphingArea, removeGraphingArea } from './graphing';
 
 // Wait for the DOM to be ready
@@ -129,7 +129,7 @@ function getButtons(buttonSet: string[], display: HTMLDivElement | null) {
           // Calculate the result
           try {
             // @ts-ignore
-            display!.innerText = evaluate(display!.innerText);
+            display!.innerText = mexp.eval(display!.innerText);
           } catch (error) {
             display!.innerText = 'Error';
             console.log(error);

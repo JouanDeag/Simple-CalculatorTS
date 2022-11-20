@@ -7,6 +7,7 @@ specifiers:
   '@vitest/ui': ^0.25.2
   events: ^3.3.0
   function-plot: ^1.23.1
+  math-expression-evaluator: ^1.4.0
   mathjs: ^11.3.3
   playwright: ^1.27.1
   typescript: ^4.9.3
@@ -16,6 +17,7 @@ specifiers:
 dependencies:
   events: 3.3.0
   function-plot: 1.23.1
+  math-expression-evaluator: 1.4.0
   mathjs: 11.3.3
 
 devDependencies:
@@ -601,6 +603,10 @@ packages:
     dependencies:
       extend: 3.0.2
       mr-parser: 0.2.1
+    dev: false
+
+  /math-expression-evaluator/1.4.0:
+    resolution: {integrity: sha512-4vRUvPyxdO8cWULGTh9dZWL2tZK6LDBvj+OGHBER7poH9Qdt7kXEoj20wiz4lQUbUXQZFjPbe5mVDo9nutizCw==}
     dev: false
 
   /mathjs/11.3.3:

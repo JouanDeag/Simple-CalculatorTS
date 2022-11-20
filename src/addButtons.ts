@@ -1,5 +1,5 @@
 import { graph } from './graphing';
-import { evaluate } from './math';
+import mexp from 'math-expression-evaluator';
 
 export default function addButtons(
   buttons: string[],
@@ -53,7 +53,7 @@ export default function addButtons(
               let toEval = display!.innerText
                 .replace('pi', '3.14159265359')
                 .replace('e', '2.71828182846');
-              display!.innerText = evaluate(toEval).toString();
+              display!.innerText = mexp.eval(toEval);
             }
           } catch (error) {
             display!.innerText = 'Error';
